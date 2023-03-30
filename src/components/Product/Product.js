@@ -14,15 +14,9 @@ const Product = (props) => {
     ];
   };
 
-  const getPrice = (obj) => {
-    let basePriceProduct = props.basePrice;
-    let additionalPrice = 0;
-    obj.map((size) => {
-      if (currentSize === size.name) {
-        additionalPrice = size.additionalPrice;
-      }
-    });
-    return additionalPrice + basePriceProduct;
+  const getPrice = () => {
+    const selectSize = props.sizes.find(({ name }) => name === currentSize);
+    return props.basePrice + selectSize.additionalPrice;
   };
 
   return (
@@ -37,7 +31,7 @@ const Product = (props) => {
       <div>
         <header>
           <h2 className={styles.name}>{props.title}</h2>
-          <span className={styles.price}>Price: {getPrice(props.sizes)} $</span>
+          <span className={styles.price}>Price: {getPrice()} $</span>
         </header>
         <form>
           <div className={styles.sizes}>
