@@ -3,6 +3,10 @@ import clsx from "clsx";
 import Button from "../Button/Button";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import shortid from "shortid";
+import ProductImage from "../ProductImage/ProductImage";
+import ProductForm from "../ProductForm/ProductForm";
+import OptionSize from "../OptionSize/OptionSize";
 
 const Product = (props) => {
   const [currentColor, setCurrentColor] = useState(props.colors[0]);
@@ -19,26 +23,45 @@ const Product = (props) => {
     return props.basePrice + selectSize.additionalPrice;
   };
 
+  const addToCart = (e) => {
+    e.preventDefault();
+    const summary = {
+      id: shortid(),
+      Name: props.title,
+      Price: getPrice(),
+      Size: currentSize,
+      Color: currentColor,
+    };
+    console.log("Summary" + "\n" + "=============" + "\n", summary);
+  };
+
+  const changeSize = (selectedSize) => {
+    setCurrentSize(selectedSize);
+  };
+
   return (
     <article className={styles.product}>
-      <div className={styles.imageContainer}>
-        <img
-          className={styles.image}
-          alt={props.title}
-          src={`${process.env.PUBLIC_URL}/images/products/shirt-${props.name}--${currentColor}.jpg`}
-        />
-      </div>
+      <ProductImage name={props.name} currentColor={currentColor} />
       <div>
         <header>
           <h2 className={styles.name}>{props.title}</h2>
           <span className={styles.price}>Price: {getPrice()} $</span>
         </header>
-        <form>
+
+        <ProductForm
+          obj={props}
+          action={addToCart}
+          currentSize={currentSize}
+          currentColor={currentColor}
+          selectSize={changeSize}
+        ></ProductForm>
+
+        {/* <form onSubmit={addToCart}>
           <div className={styles.sizes}>
             <h3 className={styles.optionLabel}>Sizes</h3>
             <ul className={styles.choices}>
               {props.sizes.map((size) => (
-                <li>
+                <li key={size.name}>
                   <button
                     type="button"
                     className={clsx(currentSize === size.name && styles.active)}
@@ -70,7 +93,7 @@ const Product = (props) => {
           <Button className={styles.button}>
             <span className="fa fa-shopping-cart" />
           </Button>
-        </form>
+        </form> */}
       </div>
     </article>
   );
