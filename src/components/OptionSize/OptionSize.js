@@ -1,5 +1,6 @@
 import styles from "./OptionSize.module.scss";
 import clsx from "clsx";
+import PropTypes from "prop-types";
 
 const OptionSize = ({ sizes, action, currentSize }) => {
   const handleSubmit = (name) => {
@@ -24,6 +25,12 @@ const OptionSize = ({ sizes, action, currentSize }) => {
       </ul>
     </div>
   );
+};
+
+OptionSize.propTypes = {
+  sizes: PropTypes.array.isRequired,
+  action: PropTypes.func.isRequired,
+  currentSize: PropTypes.string.isRequired,
 };
 
 export default OptionSize;

@@ -29,13 +29,10 @@ const Product = (props) => {
     setCurrentSize(selectedSize);
   };
 
-  // const changeColor = (selectedColor) => {
-  //   setCurrentColor(selectedColor);
-  // };
-
   const changeColor = (selectedColor) => {
     setCurrentColor(selectedColor);
   };
+
   return (
     <article className={styles.product}>
       <ProductImage name={props.name} currentColor={currentColor} />
@@ -50,8 +47,8 @@ const Product = (props) => {
           action={addToCart}
           currentSize={currentSize}
           currentColor={currentColor}
-          selectSize={changeSize}
-          selectColor={changeColor}
+          changeSize={changeSize}
+          changeColor={changeColor}
         ></ProductForm>
       </div>
     </article>
