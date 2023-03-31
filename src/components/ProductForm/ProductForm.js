@@ -1,12 +1,15 @@
 import styles from "./ProductForm.module.scss";
 import OptionSize from "../OptionSize/OptionSize";
+import OptionColor from "../OptionColor/OptionColor";
+import Button from "../Button/Button";
 
 const ProductForm = ({
   obj,
+  action,
   currentSize,
   currentColor,
-  action,
   selectSize,
+  selectColor,
 }) => {
   return (
     <form onSubmit={action}>
@@ -15,6 +18,14 @@ const ProductForm = ({
         currentSize={currentSize}
         action={selectSize}
       />
+      <OptionColor
+        colors={obj.colors}
+        currentColor={currentColor}
+        action={selectColor}
+      />
+      <Button className={styles.button}>
+        <span className="fa fa-shopping-cart" />
+      </Button>
     </form>
   );
 };
