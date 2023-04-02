@@ -11,6 +11,7 @@ const ProductForm = ({
   currentColor,
   changeSize,
   changeColor,
+  changePrice,
 }) => {
   return (
     <form onSubmit={action}>
@@ -18,6 +19,7 @@ const ProductForm = ({
         sizes={obj.sizes}
         currentSize={currentSize}
         action={changeSize}
+        changePrice={changePrice}
       />
       <OptionColor
         colors={obj.colors}

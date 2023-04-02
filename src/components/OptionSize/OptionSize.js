@@ -2,9 +2,10 @@ import styles from "./OptionSize.module.scss";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 
-const OptionSize = ({ sizes, action, currentSize }) => {
-  const handleSubmit = (name) => {
+const OptionSize = ({ sizes, action, currentSize, changePrice }) => {
+  const handleSubmit = (name, price) => {
     action(name);
+    changePrice(price);
   };
 
   return (
@@ -16,7 +17,9 @@ const OptionSize = ({ sizes, action, currentSize }) => {
             <button
               type="button"
               className={clsx(currentSize === size.name && styles.active)}
-              onClick={() => handleSubmit(size.name)}
+              onClick={() => {
+                handleSubmit(size.name, size.additionalPrice);
+              }}
             >
               {size.name}
             </button>
