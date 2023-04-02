@@ -7,16 +7,12 @@ import ProductForm from "../ProductForm/ProductForm";
 const Product = (props) => {
   const [currentColor, setCurrentColor] = useState(props.colors[0]);
   const [currentSize, setCurrentSize] = useState(props.sizes[0].name);
-  const [currentPrice, setCurrentPrice] = useState(
-    props.sizes[0].additionalPrice
-  );
 
-  const getPrice = () => {
+  const calculation = useMemo(() => {
     const selectSize = props.sizes.find(({ name }) => name === currentSize);
+    console.log(selectSize.additionalPrice);
     return props.basePrice + selectSize.additionalPrice;
-  };
-
-  const calculation = useMemo(() => getPrice(), [currentPrice]);
+  }, [currentSize]);
 
   const addToCart = (e) => {
     e.preventDefault();
@@ -38,9 +34,6 @@ const Product = (props) => {
     setCurrentColor(selectedColor);
   };
 
-  const changePrice = (price) => {
-    setCurrentPrice(price);
-  };
   return (
     <article className={styles.product}>
       <ProductImage name={props.name} currentColor={currentColor} />
@@ -57,7 +50,6 @@ const Product = (props) => {
           currentColor={currentColor}
           changeSize={changeSize}
           changeColor={changeColor}
-          changePrice={changePrice}
         ></ProductForm>
       </div>
     </article>
